@@ -26,18 +26,27 @@ namespace BankOfDotNet.WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthentication("Bearer").AddIdentityServerAuthentication
+                (
+                opt =>
+                {
+                    opt.Authority = "http://localhost:5000";
+                    opt.RequireHttpsMetadata = false;
+                    opt.ApiName = "bankOfDotNetApi";
+                }
+                );
             services.AddDbContext<BankContext>(opts => opts.UseInMemoryDatabase("BankingDB"));
             services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
+        {           
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseAuthentication();
             app.UseRouting();
 
             app.UseAuthorization();
