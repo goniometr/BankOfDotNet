@@ -13,8 +13,16 @@ namespace BankOfDotNetIdentitySvr
         {
             return new List<ApiResource>()
             {
-                new ApiResource("bankOfDotNet.Api", "Customer API for bankOfDotNet")
+                new ApiResource("bankOfDotNet", "Customer API for bankOfDotNetApi")
             };
+        }
+
+        public static List<IdentityResource> GetIdentityResources()
+        {
+            return new List<IdentityResource>()
+                {
+                    new IdentityResource()   { Name = "BankOfDotNet" }
+                };
         }
 
         public static IEnumerable<Client> GetClients()
@@ -28,9 +36,8 @@ namespace BankOfDotNetIdentitySvr
                        ClientSecrets =
                        {
                             new Secret("secret".ToSha256())
-
-                        },
-                       AllowedScopes ={ "bankOfDotNet.Api" }
+                       },
+                       AllowedScopes = new List<string>() {"bankOfDotNet" }
                 }
             };
         }

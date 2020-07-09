@@ -1,10 +1,16 @@
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
+using IdentityModel;
+using IdentityModel.Client;
+using IdentityServer4;
+using IdentityServer4.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -19,8 +25,10 @@ namespace BankOfDotNetIdentitySvr
             services.AddIdentityServer()
                .AddDeveloperSigningCredential()
                .AddInMemoryApiResources(Config.GetAllApiResources())
-               .AddInMemoryClients(Config.GetClients());
+               .AddInMemoryClients(Config.GetClients())
+               .AddInMemoryIdentityResources(Config.GetIdentityResources());
         }
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -30,15 +38,6 @@ namespace BankOfDotNetIdentitySvr
                 app.UseDeveloperExceptionPage();
             }
             app.UseIdentityServer();
-            //app.UseRouting();
-
-            //app.UseEndpoints(endpoints =>
-            //{
-            //    endpoints.MapGet("/", async context =>
-            //    {
-            //        await context.Response.WriteAsync("Hello World!");
-            //    });
-            //});
         }
     }
 }
