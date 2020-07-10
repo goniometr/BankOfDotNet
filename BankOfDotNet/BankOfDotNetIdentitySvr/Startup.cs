@@ -26,7 +26,8 @@ namespace BankOfDotNetIdentitySvr
                .AddDeveloperSigningCredential()
                .AddInMemoryApiResources(Config.GetAllApiResources())
                .AddInMemoryClients(Config.GetClients())
-               .AddInMemoryIdentityResources(Config.GetIdentityResources());
+              // .AddInMemoryIdentityResources(Config.GetIdentityResources())
+               .AddInMemoryApiScopes(Config.GetApiScopes());
         }
 
 

@@ -33,6 +33,7 @@ namespace BankOfDotNet.WebAPI
                     opt.Authority = "http://localhost:5000";
                     opt.RequireHttpsMetadata = false;
                     opt.ApiName = "bankOfDotNetApi";
+           
                 }
                 );
             services.AddDbContext<BankContext>(opts => opts.UseInMemoryDatabase("BankingDB"));

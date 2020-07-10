@@ -13,7 +13,7 @@ namespace BankOfDotNetIdentitySvr
         {
             return new List<ApiResource>()
             {
-                new ApiResource("bankOfDotNet", "Customer API for bankOfDotNetApi")
+                new ApiResource("bankOfDotNetApi", "Customer API for bankOfDotNetApi")
             };
         }
 
@@ -21,7 +21,9 @@ namespace BankOfDotNetIdentitySvr
         {
             return new List<IdentityResource>()
                 {
-                    new IdentityResource()   { Name = "BankOfDotNet" }
+                    new IdentityResource()   { Name = "bankOfDotNetApi" },
+                    new IdentityResources.Profile(),
+                    new IdentityResources.OpenId()
                 };
         }
 
@@ -37,9 +39,18 @@ namespace BankOfDotNetIdentitySvr
                        {
                             new Secret("secret".ToSha256())
                        },
-                       AllowedScopes = new List<string>() {"bankOfDotNet" }
+                       AllowedScopes = new List<string>() {"bankOfDotNetApi" }
                 }
             };
+        }
+
+        public static IEnumerable<ApiScope> GetApiScopes()
+        {
+            return new[]
+            {
+            new ApiScope("bankOfDotNetApi", "Read Access to API #1"),
+                        new ApiScope("api1.write", "Write Access to API #1")
+        };
         }
     }
 }
